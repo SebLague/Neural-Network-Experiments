@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1276717332819110412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276717332819110414}
+  - component: {fileID: 5535095557652240382}
+  m_Layer: 0
+  m_Name: Fashion Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276717332819110414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276717332819110412}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5535095557652240382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276717332819110412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3634e5c441b8bb4997fdba2dbb417b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageSize: 28
+  greyscale: 1
+  dataFiles:
+  - imageFile: {fileID: 4900000, guid: ef54019d340904a449f722e933ced4f2, type: 3}
+    labelFile: {fileID: 4900000, guid: 01571f6507270a042b48aa25e9f37cf3, type: 3}
+  labelNames:
+  - T-shirt
+  - Trousers
+  - Pullover
+  - Dress
+  - Coat
+  - Sandal
+  - Shirt
+  - Sneaker
+  - Bag
+  - Ankle boot

@@ -1,0 +1,60 @@
+#pragma kernel CSMain
+
+RWTexture2D<float4> Canvas;
+
+uint resolution;
+int2 brushCentre;
+int2 brushCentreOld;
+float brushRadius;
+float smoothing;
+int mode;
+
+RWStructuredBuffer<uint> bounds; // xMin, xMax, yMin, yMax
+
+// return smooth value between 0 and 1 (0 when t = minVal, 1 when t = maxVal)
+float smoothstep(float minVal, float maxVal, float t) {
+	t = saturate((t-minVal) / (maxVal - minVal));
+	return t * t * (3 - 2 * t);
+}
+
+float dstToLineSegment(float2 a, float2 b, float2 p) {
+	float2 ab = b - a;
+	float2 ap = p - a;
+
+	float lineSegSqrLen = dot(ab, ab);
+	if (lineSegSqrLen == 0) {
+		return length(ap);
+	}
+
+	float t = min(1, max(0, dot(ap, ab) / lineSegSqrLen));
+	float2 pointOnLineSeg = a + ab * t;
+	return length(p - pointOnLineSeg);
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+	if (id.x >= resolution || id.y >= resolution) { return; }
+
+	float dst = dstToLineSegment(brushCentre, brushCentreOld, id.xy);
+
+	if (dst < brushRadius) {
+		float val = 1 - smoothstep(brushRadius * (1-smoothing), brushRadius, dst);
+		// Draw
+		if (mode == 0) {
+			
+			Canvas[id.xy] = max(val, Canvas[id.xy]);
+		}
+		// Erase
+		else {
+			Canvas[id.xy] = max(0, Canvas[id.xy] - val);
+		}
+	}
+
+	if (Canvas[id.xy].r != 0) {//
+		InterlockedMin(bounds[0], id.x);
+		InterlockedMax(bounds[1], id.x);
+		InterlockedMin(bounds[2], id.y);
+		InterlockedMax(bounds[3], id.y);
+	}
+}
