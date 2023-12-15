@@ -126,6 +126,13 @@ public readonly struct Activation
 			return res;
 		}
 
+		// Much like stochastic gradient descent's quick, not-so-perfect steps downhill
+		// using mini-batches, this derivative serves as a good-enough approximation. It's
+		// simpler to calculate and we can keep our interface consistent with the other
+		// single-input activation functions above (though it won't pass gradient checks). A
+		// complete derivative for the Softmax function involves computing a Jacobian matrix
+		// which finds partial derivative of the activation function with respect to all of
+		// the inputs of each node in the layer.
 		public double Derivative(double[] inputs, int index)
 		{
 			double expSum = 0;
